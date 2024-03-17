@@ -1,5 +1,6 @@
 #include "../Headers/LinkedList.h"
-
+////////////////////// 特别说明：单双链表都会设置一个头结点head,这个结点值设置为-1,且算做第 0 个。
+///////////// 并且这个点稳如老狗，无论什么操作，它都在链表最前面。 
 int Length_LinkedList(LNode* head) {
 	if (head == NULL) {
 		return 0;
@@ -69,12 +70,12 @@ void showLinkedList(LNode* head) {
 	}	
 }
 
-void deleteLNode(LNode* head) {
+void deleteLNode(LNode* head) { ///////// 删除第value个结点的下一个结点 
 	int value;
 	printf("从第几个之后开始删除：\n ");
 	scanf("%d",&value);
 	LNode* p=head;
-	if (value <= 0 || value > Length_LinkedList(head)-1) {
+	if (value <= 0 || value >= Length_LinkedList(head)-1) {
 		printf("输入的数字不符合要求，删除失败！\n");
 	} else {
 		for (int i=0;i<value;i++) {
@@ -129,6 +130,16 @@ void reversed_LinkedList(LNode* head) {   /////// 非递归反转(头结点不反转)
 	}
 }
 
+LNode* Reversed_LinkedList(LNode* head) { ///////// 递归反转 
+	if (head->next == NULL || head == NULL) {
+	   return head;
+    }
+    LNode* last = Reversed_LinkedList(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return last;
+}
+
 bool isCircle(LNode* head) {
 	if (head == NULL || head->next == NULL) {
 		return false;
@@ -150,6 +161,45 @@ bool isCircle(LNode* head) {
 			}
 		}
 	}
+}
+
+LNode* odd_even(LNode* head) { ////// 头结点不纳入对换范围 (头结点稳如老狗)
+	if (head->next == NULL || head == NULL) {
+		printf("无法执行操作");
+		return head;
+	} else if (head->next && head->next->next == NULL) {
+		printf("无法执行操作");
+		return head;
+	}
+    LNode*temp,*odd,*even,*even_temp; ////// even_temp 指向第一次交换后的链表头部(不计头结点),方便之后全部交换完连接。 
+    int count = 0;  /////// 计数器
+	temp = head->next;  ////////// temp 辅助对换操作 
+    odd = head->next;
+    even = odd->next;
+    head->next = NULL;     
+    while (true) {
+    	if (even == NULL) {
+    		break;
+		}
+    	++count;
+    		odd->next = even->next;
+    		even->next = odd;
+    		if (count == 1) {
+    			even_temp = even;
+			}
+    		if (count > 1) {
+    		temp->next = even;
+    	    }
+    		temp = odd;
+    		/////// 如果链表（除头结点）长度为偶数，还需要一个指针指着第一次交换后的链表头部，方便后续连接
+    		if (odd->next == NULL) {
+    			break;
+			}
+    		odd = odd->next;
+    		even = odd->next;
+	}
+    	head->next = even_temp;
+	return head;
 }
 
 int middle_value(LNode* head) {
@@ -177,7 +227,7 @@ int main() {
 	LNode* head = initLinkedList();
 	bool loop = true;
     while (loop) {
-    	printf("请输入操作编号：\n 1.添加节点\n 2.展示链表\n 3.删除结点\n 4.修改结点\n 5.反转\n 6.退出\n 7.判断是否有环\n 8.返回链表中间值\n");
+    	printf("请输入操作编号：\n 1.添加节点\n 2.展示链表\n 3.删除结点\n 4.修改结点\n 5.反转\n 6.退出\n 7.判断是否有环\n 8.返回链表中间值\n 9.奇偶操作\n");
 		scanf("%d",&id);
 		switch(id) {
 			case 1:
@@ -196,7 +246,7 @@ int main() {
 				reversed_LinkedList(head);
 				break;
 			case 6:
-				printf("操作结束，程序退出！");
+				printf("操作结束，程序退出！\n");
 				loop = false;
 				break;
 			case 7:
@@ -208,6 +258,11 @@ int main() {
 			case 8:
 				printf("该链表中间值为：%d\n",middle_value(head));
 				break;
+			case 9:
+				odd_even(head);
+				break;
+			default:
+				printf("没选中操作，请重新选择！！！\n");
 		} 
 	}
 } 
