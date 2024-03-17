@@ -33,4 +33,7 @@ bool isCircle(LNode* head);
 LNode* reverseLinkedList(LNode* head);
 
 ///// 返回单链表中点的值
-int middle_Value(LNode* head);  
+int middle_Value(LNode* head);
+
+///// 链表奇偶索引的结点对换
+LNode* odd_even(LNode* head);  
