@@ -1,4 +1,4 @@
-package com.qg;
+package qg;
 
 public class Account {
 

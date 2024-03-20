@@ -1,7 +1,9 @@
-package com.qg;
+package qg;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,16 +13,17 @@ import java.util.Properties;
 import java.util.Scanner;
 import javax.sql.DataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import org.junit.*;
+///import org.junit.*;
 
 public class AccountTest {
 	 ////////配置文件以及驱动
-	 //static Connection conn = null;
+	 static Connection conn = null;
 	 static DataSource datasource;
 	 static {
 		 try {
 			 Properties prop = new Properties();
-			 prop.load(new FileInputStream("../第一周/src/com/qg/jdbc.properties"));
+			 InputStream ips=AccountTest.class.getClassLoader().getResourceAsStream("jdbc.properties");
+			 prop.load(ips);
 			 //////// 获取Druid连接池对象
 			 datasource = DruidDataSourceFactory.createDataSource(prop);
 			 //////注册驱动
@@ -31,7 +34,7 @@ public class AccountTest {
 	 }
 	 ///////// 连接数据库操作
 	 public static Connection getConnection() throws SQLException {
-		 System.out.println("Database connnection successful！");
+		 System.out.println("数据库连接成功！！！");
 		 return datasource.getConnection();
 	 }
 	  //////// 关闭资源操作
@@ -101,9 +104,9 @@ public class AccountTest {
 		/////// 受影响的行数
 		 int count = pstmt.executeUpdate();
 		 if (count > 0) {
-			 System.out.println("Add succeeds");
+			 System.out.println("添加成功！");
 		 } else {
-			 System.out.println("Add fails");
+			 System.out.println("添加失败！");
 		 }
 		 close(pstmt,null);
 	 }
@@ -112,15 +115,16 @@ public class AccountTest {
     public void Delete() throws SQLException {
    	 int id;
    	 Scanner sc = new Scanner(System.in);
+	 System.out.println("请输入要删除的编号：");
    	 id = sc.nextInt();
    	 String sql = "delete from tb_qg where id = ?";
    	 PreparedStatement pstmt = getConnection().prepareStatement(sql);
    	 pstmt.setInt(1, id);
    	 int count = pstmt.executeUpdate();
    	 if (count > 0) {
-   		 System.out.println("Operation succeeds");
+   		 System.out.println("删除成功！");
    	 } else {
-   		 System.out.println("Operation fails");
+   		 System.out.println("删除失败！");
    	 }
    	 close(pstmt,null);
     }
@@ -131,7 +135,7 @@ public class AccountTest {
 		 String sql = "update tb_qg set name = ? ,sex = ?,birthday = ?,dept = ? where id = ?";
 		 PreparedStatement pstmt = getConnection().prepareStatement(sql);
 		 /////// 通过序号选择你要改的列
-		 System.out.println("Input the new value you expect（1.name 2.sex 3.birthday 4.dept 5.id）");
+		 System.out.println("按顺序输入新的值（1.名字，2.性别，3.生日，4.部门，5.编号）");
 		 String new_Name = sc.next();
 		 String new_Sex = sc.next();
 		 String new_Birthday = sc.next();
@@ -144,9 +148,9 @@ public class AccountTest {
 		 pstmt.setInt(5, id);
 		 int count = pstmt.executeUpdate();
    	 if (count > 0) {
-   		 System.out.println("Operation succeeds");
+   		 System.out.println("更改成功！");
    	 } else {
-   		 System.out.println("Operation fails");
+   		 System.out.println("更改失败！");
    	 }
 		 close(pstmt,null);
 	 }
@@ -159,7 +163,7 @@ public class AccountTest {
    	 AccountTest at = new AccountTest();
    	 boolean loop = true;
    	 ////// 1. 查询 2.添加 3.删除 4.更改 其余数字：退出
-   	 System.out.println("Program begin,please input your choice of four operations.");
+   	 System.out.println("程序启动，请输入你的操作编号（1-遍历，2-添加，3-删除，4-更改，其余数字-退出）");
    	 while (loop) {
    		 choice = sc.nextInt();
    		 switch (choice) {
@@ -176,7 +180,7 @@ public class AccountTest {
    			 at.Update();
    			 break;
    		 default:
-   			 System.out.println("Operation unvalid");
+   			 System.out.println("程序结束！");
    			 loop = false;
    			 break;
    		 }
