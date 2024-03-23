@@ -28,8 +28,7 @@ void addLNode(DuLNode* head) {
 	int n,LinkedList_count,value_count;
 	/////////// 如果链表为空就初始化链表结束
 	if (head == NULL) {
-		initLinkedList();
-		printf("初始化链表成功！，函数此次结束!");
+		printf("链表未初始化，请回去初始化链表！\n");
 	} else { 
 	    printf("请输入在第几个添加结点以及添加个数: \n");
 	    scanf("%d %d",&n,&value_count);
@@ -65,6 +64,9 @@ void addLNode(DuLNode* head) {
 
 ////// 删除第n个结点
 void deleteLNode(DuLNode* head) {
+	if (head == NULL) {
+		printf("链表未初始化，请回去初始化链表！\n");
+	} else {
 	int value;
 	printf("删除第几个：\n ");
 	scanf("%d",&value);
@@ -78,11 +80,15 @@ void deleteLNode(DuLNode* head) {
 		p->front->next = p->next;
 		p->next->front = p->front;
 		printf("删除成功！\n");
-	}
+	 }
+   }
 }
 
 ////// 修改第n个结点的值
 void updateLNode(DuLNode* head) {
+	if (head == NULL) {
+		printf("链表未初始化，请回去初始化链表！\n");
+	} else {
 	int value,new_value;
 	printf("修改第几个： ");
 	scanf("%d",&value);
@@ -100,10 +106,14 @@ void updateLNode(DuLNode* head) {
 		p->data = new_value;
 		printf("修改成功!\n");
 	}
+   }
 }
 
 ///// 遍历整个链表
 void showLinkedList(DuLNode* head) {
+	if (head == NULL) {
+		printf("链表未初始化，请回去初始化链表！\n");
+	} else {
 	int choice;
 	printf("选择正向遍历(1),还是反向遍历(2)：");
 	scanf("%d",&choice);
@@ -133,32 +143,39 @@ void showLinkedList(DuLNode* head) {
 	} else {
 		printf("无效选择！");
 	}
+   }
 }
 
 int main() {
 	int id;
-	DuLNode* head = initLinkedList();
+	DuLNode* head = NULL;
 	bool loop = true;
     while (loop) {
-    	printf("请输入操作编号：\n 1.添加节点\n 2.展示链表\n 3.删除结点\n 4.修改结点\n 5.退出\n");
+    	printf("请输入操作编号：\n 1.初始化链表\n 2.添加节点\n 3.展示链表\n 4.删除结点\n 5.修改结点\n 6.退出\n");
 		scanf("%d",&id);
 		switch(id) {
 			case 1:
-				addLNode(head);
+				head = initLinkedList();
 				break;
 			case 2:
-				showLinkedList(head);
+				addLNode(head);
 				break;
 			case 3:
-				deleteLNode(head);
+				showLinkedList(head);
 				break;
 			case 4:
-				updateLNode(head);
+				deleteLNode(head);
 				break;
 			case 5:
-				printf("操作结束，程序退出！");
+				updateLNode(head);
+				break;
+			case 6:
+				printf("操作结束，程序退出！\n");
 				loop = false;
 				break;
+			default:
+				printf("该选择无效！\n");
 		} 
 	}
+	return 0;
 }

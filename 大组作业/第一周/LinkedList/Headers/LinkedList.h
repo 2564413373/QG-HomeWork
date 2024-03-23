@@ -3,7 +3,7 @@
 using namespace std;
 
 ////// define the struct of a linkedList
-typedef struct LNode {
+struct LNode {
 	int data;  ////// 数据 
 	struct LNode* next;
 };
@@ -24,16 +24,16 @@ void updateLNode(LNode*);
 int searchLNode(LNode*);
 
 ///// 遍历整个链表
-void showLinkedList(LNode* head);
+void showLinkedList(LNode*);
 
 ///// 判断链表有没有成环
-bool isCircle(LNode* head);
+bool isCircle(LNode*);
 
 //// 反转链表
-LNode* reverseLinkedList(LNode* head);
+void reversed_LinkedList(LNode*);
 
 ///// 返回单链表中点的值
-int middle_Value(LNode* head);
+int middle_value(LNode*);
 
 ///// 链表奇偶索引的结点对换
-LNode* odd_even(LNode* head);  
+LNode* odd_even(LNode*);  
