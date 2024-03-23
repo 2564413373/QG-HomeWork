@@ -1,58 +1,4 @@
 #include "../Headers/LinkedList.h"
-////////////////////// 特别说明：单双链表都会设置一个头结点head,这个结点值设置为-1,且算做第 0 个。
-///////////// 并且这个点稳如老狗，无论什么操作，它都在链表最前面。 
-int Length_LinkedList(LNode* head) {
-	if (head == NULL) {
-		return 0;
-	}
-	LNode* p = head;
-	int count = 0;
-	while(p) {
-		++count;
-		p = p->next;
-	}
-	return count;
-}
-
-LNode* initLinkedList() {
-	LNode* head = (struct LNode*)malloc(sizeof(struct LNode));
-	head->data = -1;  //////// 头结点值为-1
-	head->next = NULL;
-	printf("链表初始化完成！\n");
-	return head;
-}
-
-void addLNode(LNode* head) { ///// 头结点默认是第0个  
-	int n,LinkedList_count,value_count;
-	/////////// 如果链表为空就初始化链表结束
-	if (head == NULL) {
-		printf("链表未初始化，请回去初始化链表！\n");
-	} else { 
-	    printf("请输入在第几个添加结点以及添加个数: \n");
-	    scanf("%d %d",&n,&value_count);
-	    LNode *p;
-		if (n < 0 || n > Length_LinkedList(head)-1) { ////// n为负数或者超过链表长度，添加都失败 
-			printf("输入的数字不符合要求，添加失败！");
-		} else {
-			p = head;
-			int value; ////// 输入的值
-			for (int i=0;i<n;i++) {
-				p = p->next;
-			} 
-		    for (int i=0;i<value_count;i++) {
-		    	printf("请输入要添加的值：\n ");
-		    	scanf("%d",&value);
-				LNode* temp = (struct LNode*)malloc(sizeof(struct LNode));
-				temp->data = value;
-				temp->next = p->next;
-				p->next = temp;
-				p = temp;
-				temp = NULL;
-			}
-			printf("添加完成!\n");
-		}
-    }
-}
 
 void showLinkedList(LNode* head) {
     if (head == NULL) {
@@ -67,30 +13,6 @@ void showLinkedList(LNode* head) {
 		printf("\n");
 		free(p);
 	}	
-}
-
-void deleteLNode(LNode* head) { ///////// 删除第value个结点的下一个结点
-    if (head == NULL) {
-    	printf("链表未初始化，请回去初始化链表！\n");
-	}  else  {
-	int value;
-	printf("从第几个之后开始删除：\n ");
-	scanf("%d",&value);
-	LNode* p=head;
-	if (value <= 0 || value >= Length_LinkedList(head)-1) {
-		printf("输入的数字不符合要求，删除失败！\n");
-	} else {
-		for (int i=0;i<value;i++) {
-			p = p->next;
-		}
-		if (!p->next->next) {
-			p->next = NULL;
-		} else {
-			p->next = p->next->next;
-		}
-		printf("删除成功！\n");
-	}
-   }
 }
 
 void updateLNode(LNode* head) {
@@ -139,6 +61,70 @@ void reversed_LinkedList(LNode* head) {   /////// 非递归反转(头结点不反转)
 		}
 		printf("反转成功!\n");
 	}
+}
+
+LNode* initLinkedList() {
+	LNode* head = (struct LNode*)malloc(sizeof(struct LNode));
+	head->data = -1;  //////// 头结点值为-1
+	head->next = NULL;
+	printf("链表初始化完成！\n");
+	return head;
+}
+
+void addLNode(LNode* head) { ///// 头结点默认是第0个  
+	int n,LinkedList_count,value_count;
+	/////////// 如果链表为空就初始化链表结束
+	if (head == NULL) {
+		printf("链表未初始化，请回去初始化链表！\n");
+	} else { 
+	    printf("请输入在第几个添加结点以及添加个数: \n");
+	    scanf("%d %d",&n,&value_count);
+	    LNode *p;
+		if (n < 0 || n > Length_LinkedList(head)-1) { ////// n为负数或者超过链表长度，添加都失败 
+			printf("输入的数字不符合要求，添加失败！");
+		} else {
+			p = head;
+			int value; ////// 输入的值
+			for (int i=0;i<n;i++) {
+				p = p->next;
+			} 
+		    for (int i=0;i<value_count;i++) {
+		    	printf("请输入要添加的值：\n ");
+		    	scanf("%d",&value);
+				LNode* temp = (struct LNode*)malloc(sizeof(struct LNode));
+				temp->data = value;
+				temp->next = p->next;
+				p->next = temp;
+				p = temp;
+				temp = NULL;
+			}
+			printf("添加完成!\n");
+		}
+    }
+}
+
+void deleteLNode(LNode* head) { ///////// 删除第value个结点的下一个结点
+    if (head == NULL) {
+    	printf("链表未初始化，请回去初始化链表！\n");
+	}  else  {
+	int value;
+	printf("从第几个之后开始删除：\n ");
+	scanf("%d",&value);
+	LNode* p=head;
+	if (value <= 0 || value >= Length_LinkedList(head)-1) {
+		printf("输入的数字不符合要求，删除失败！\n");
+	} else {
+		for (int i=0;i<value;i++) {
+			p = p->next;
+		}
+		if (!p->next->next) {
+			p->next = NULL;
+		} else {
+			p->next = p->next->next;
+		}
+		printf("删除成功！\n");
+	}
+   }
 }
 
 bool isCircle(LNode* head) {
