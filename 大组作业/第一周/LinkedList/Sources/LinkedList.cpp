@@ -197,6 +197,7 @@ LNode* odd_even(LNode* head) { ////// 头结点不纳入对换范围 (头结点稳如老狗)
     		even = odd->next;
 	}
     head->next = even_temp;
+    printf("执行成功！");
 	return head;
 }
 
@@ -261,12 +262,11 @@ int main() {
 				break;
 			case 10:
 				odd_even(head);
-				if (odd_even(head)) {
-					printf("操作成功！\n");
-				} 
 				break;
 			default:
 				printf("没选中操作，请重新选择！！！\n");
 		} 
 	}
+	printf("\n");
+    system("pause");
 } 
