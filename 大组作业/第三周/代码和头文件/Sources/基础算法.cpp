@@ -390,7 +390,7 @@ void merge(int* arr, int begin, int mid, int end) {
 void MergeSort(int* arr, int begin, int end) {
     if (begin < end) {
         // 找到中间索引
-        int mid = begin + (end - begin) / 2;
+        int mid = (begin + end) / 2;
 
         // 递归地对左右两半进行排序
         MergeSort(arr, begin, mid);
