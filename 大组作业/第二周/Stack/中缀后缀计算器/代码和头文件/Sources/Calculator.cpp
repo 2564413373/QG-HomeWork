@@ -45,7 +45,6 @@ char Headvalue(LinkStack* head) {
 void push_LinkStack(LinkStack* head,int value) {
 	LinkStackPtr temp = (LinkStackPtr)malloc(sizeof(StackNode));
 	temp->data = value;
-	temp->next = NULL;
 	temp->next = head->top;
 	head->top = temp;
 	++head->count;
@@ -93,8 +92,15 @@ int InfixtoPostfix(char* a,LinkStack* count_stack) {
 	while (a[i]!='\0') {
 		//////// 数字直接打印，不能入栈
 		if (a[i] >= '0' && a[i] <= '9') {
-			/////// 入计算栈 
+			/////// 入计算栈
+			while (a[i+1] != '\0' && (a[i+1] >= '0' && a[i+1] <= '9')) {
+				int tmp = ((a[i]-'0')*10+(a[i+1]-'0'));
+				++i;
+				a[i] = tmp+'0';
+		    }
 			push_LinkStack(count_stack,a[i]);
+			//show_LinkStack(count_stack);
+			//show_LinkStack(stack);
 		} else {  /////////// 字母情况： 1.栈空直接入  2.栈不空就比较优先级  3.如果输入右括号，则连续出栈直到左括号出现
 		//4. 如果是左括号，直接入栈。 
 			if (isEmpty(stack)) {
