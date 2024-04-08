@@ -242,7 +242,9 @@ void preorderTraversal(BSTree root) {
 }
 
 ///// ÖÐÐò·ÇµÝ¹é 
-void inorderTraversal(BSTree root) {
+void inorderTraversal(BSTree root) {	
+	if (root == NULL) return;
+	
     Stack stack;
     stack.top = NULL;
     TreeNode *current = root;
