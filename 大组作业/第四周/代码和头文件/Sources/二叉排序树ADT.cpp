@@ -300,7 +300,7 @@ int main() {
 			if (flag > 0) {
 			int value; /////// 循环输入，输到-1就停止 
 				while (true) {
-					printf("请输入下一个结点的值：\n");
+					printf("请输入下一个结点的值：(输入-1就结束)\n");
 					scanf("%d",&value);
 					if (value == -1) {
 						printf("输入结束！！！\n");
