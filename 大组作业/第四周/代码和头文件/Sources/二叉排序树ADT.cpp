@@ -367,6 +367,7 @@ int main() {
 			loop = false;
 		}
 	}
+	printf("\n");
 	system("pause");
 	return 0;
 }
