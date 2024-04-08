@@ -78,8 +78,6 @@ void push(Stack*,BSTree);
 
 BSTree pop(Stack *stack);
 
-BSTree createNode(int);
-
 ///// œ»–Ú∑«µ›πÈ 
 void preorderTraversal(BSTree);
 

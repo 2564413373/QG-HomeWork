@@ -219,17 +219,6 @@ TreeNode *pop(Stack *stack) {
     return node;
 }
 
-BSTree createNode(int value) {
-    BSTree newNode = (BSTree)malloc(sizeof(TreeNode));
-    if (newNode == NULL) {
-        perror("Failed to allocate memory for tree node.");
-        exit(EXIT_FAILURE);
-    }
-    newNode->data = value;
-    newNode->left = newNode->right = NULL;
-    return newNode;
-}
-
 //////// 先序非递归 
 void preorderTraversal(BSTree root) {
     if (root == NULL) return;
@@ -336,25 +325,32 @@ int main() {
 			printf("请输入你要哪种顺序遍历：1.先序 2.中序 3.后序\n");
 			scanf("%d",&choice4);
 			if (choice4 == 1) {
+				printf("二叉树遍历如下：\n");
 				preOrder(*head);
 				printf("\n");
 			} else if (choice4 == 2) {
+				printf("二叉树遍历如下：\n");
 				inOrder(*head);
 				printf("\n");
 			} else if (choice4 == 3) {
+				printf("二叉树遍历如下：\n");
 				postOrder(*head);
 				printf("\n");
 			}
 		} else if (choice == 5) {
+			printf("二叉树遍历如下：\n");
 			levelOrderTraversal(*head);
 			printf("\n");
 		} else if (choice == 6) {
+			printf("二叉树遍历如下：\n");
 			preorderTraversal(*head);
 			printf("\n");
 		} else if (choice == 7) {
+			printf("二叉树遍历如下：\n");
 			inorderTraversal(*head);
 			printf("\n");
 		} else if (choice == 8) {
+			printf("二叉树遍历如下：\n");
 			postOrderTraversal(*head);
 			printf("\n");
 		} else if (choice == 9) {
