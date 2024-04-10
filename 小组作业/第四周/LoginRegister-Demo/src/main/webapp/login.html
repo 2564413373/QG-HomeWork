@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="jquery-3.7.1.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+                $("#btn").click(function () {
+                    var username = $('#username').val();
+                    var password = $('#password').val();
+                    ////  发送AJAX请求
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:8080/LoginRegister-Demo/User?method=login',
+                        data: {
+                            "username" : username,
+                            "password" : password
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.ok) {
+                                // 如果响应中有重定向地址，则重定向到该地址
+                                window.location.href = '/register.html';
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function (xhr,status,error) {
+                            $("#result").text("发生错误！！！"+error);
+                        }
+                    })
+                })
+        })
+    </script>
+</head>
+<body>
+
+    <h1>用户登录</h1><br><br>
+    用户名: <input type="text" id="username"><br><br>
+    密码:   <input type="password" id="password"><br><br>
+    <button id="btn">登录</button>
+<div id="result"></div>
+</body>
+</html>
