@@ -11,10 +11,10 @@
                 $.ajax({
                     type:"get",
                     url: "http://localhost:8080/AjaxJson-demo/AjaxServlet",
-                    dataType: "text",
+                    dataType: "json",
                     async: true,
                     success: function (response) {
-                        $("#result").text(response);
+                        $("#result").text(JSON.stringify(response));
                     },
                     error: function (xhr,status,error) {
                         $("#result").text("发生错误！！！"+error);
@@ -28,7 +28,7 @@
 <body>
     <h1>效果展示</h1><br><br>
     <button id="btn">展示数据</button>
-    <pre>{{ content }}</pre>
+    <pre>{{ 文本 }}</pre>
     <div id="result" ></div>
 </body>
 </html>
