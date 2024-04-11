@@ -86,8 +86,11 @@ void add_SortTree(BSTree* head,int value) {
 		/////// 如果新结点值小于当前根结点值，就去左子树
 		if (value < (*head)->data) { 
 			add_SortTree(&((*head)->left),value);
-		} else {
+		} else if (value > (*head)->data){
 			add_SortTree(&((*head)->right),value);
+		} else { ///////  新结点的值和当前根结点相同，不能添加 
+			printf("您添加的新结点值树中已存在，不能添加！！！\n");
+			return;
 		}
 	}	
 } 
